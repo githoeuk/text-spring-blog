@@ -1,0 +1,64 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO #모든 라이브러리는 INFO 이상 모두 출력
+    com.tenco: DEBUG #내 프로젝트는 DEBUG 이상 모두 출력
+
+spring:
+  mustache:
+    servlet:
+      # 머스태치 템플릿 엔진에서 request 객체와 세션 객체에 접근할 수 있도록 허용하는 설정 추가
+      expose-session-attributes: false #web - Apache
+      expose-request-attributes: false #was - Tomcat
+
+  #데이터베이스 연결 설정 (MYSQL)
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/myblog?serverTimezone=Asia/Seoul
+    username: root
+    password: root
+
+  #    driver-class-name: org.h2.Driver
+  #    url: jdbc:h2:mem:test
+  #    username: sa
+  #    password:
+  h2:
+    console:
+      enabled: true
+
+  #    초기 데이터 설정
+  sql:
+    init:
+      mode: always # 외부 DB(MySQL)에서도 실행되도록 설정
+      data-locations:
+        - classpath:db/data.sql
+  #        #classpath - resources 디렉토리의 위치의 축약 버전
+
+  #  jpa : 인터페이스로 이루어져 있는 ORM이다.
+  jpa:
+    # Open Session in view -> false 설정
+    # true (기본 값) -> 뷰 렌더링까지 DB 세션 유지 됨(LAZY 로딩 가능)
+    # false : 트랜잭션 종료 시 DB 세션 종료 (즉 Controller,View - LAZY 로딩 불가)
+    # false 사용 시 Service 필요한 데이터를 모두 조회하고 응답 시 DTO 설계 방식으로 처리
+    open-in-view: false #기본값은 true이다
+    hibernate:
+      #ddl = create -> 애플리케이션 시작 시 테이블을 새로 생성
+      # 기존 데이터는 모두 삭제됨(개발용)
+      ddl-auto: create
+    #sql 쿼리를 콘솔에 출력(개발용)
+    show-sql: true
+    properties:
+      hibernate:
+        #sql 쿼리를 보기 좋게 포맷팅 해준다.
+        format_sql: true
+        # N + 1 문제를 완화 하기위한 완충 장치 설정
+        # 기본 where 절에서 in 절(in 쿼리로 변경해준다)
+        default_batch_fetch_size: 10
+    #data.sql파일을 hibernate 초기화 이후에 실행
+    defer-datasource-initialization: true
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
