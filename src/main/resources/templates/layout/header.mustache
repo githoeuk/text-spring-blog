@@ -2,7 +2,7 @@
 <html lang="ko">
 
 <head>
-    <title>HEWAK Blog</title>
+    <title>City Pop Blog</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
@@ -94,15 +94,33 @@
             transform: translateY(-1px);
         }
 
-        .citypop-user-badge {
-            color: #fff;
+        .citypop-home-item {
+            margin-right: 18px;
+        }
+
+        .citypop-user-link {
+            color: rgba(255, 255, 255, 0.92) !important;
             border: 1px solid rgba(255, 255, 255, 0.28);
             background: rgba(255, 255, 255, 0.11);
             border-radius: 999px;
-            padding: 8px 14px;
+            padding: 9px 15px !important;
             font-size: 13px;
-            font-weight: 700;
-            margin-right: 8px;
+            font-weight: 800;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: 0.2s ease;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .citypop-user-link:hover {
+            color: var(--city-navy) !important;
+            background: var(--city-yellow);
+            border-color: var(--city-yellow);
+            transform: translateY(-1px);
+            box-shadow: 0 0 16px rgba(255, 209, 102, 0.42);
         }
 
         .citypop-btn-point {
@@ -142,6 +160,19 @@
         .citypop-link:hover {
             color: var(--city-purple);
         }
+
+        @media (max-width: 575px) {
+            .citypop-home-item {
+                margin-right: 0;
+            }
+
+            .citypop-user-link {
+                margin-left: 6px;
+                margin-right: 6px;
+                margin-top: 6px;
+                margin-bottom: 6px;
+            }
+        }
     </style>
 </head>
 
@@ -167,7 +198,7 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav ms-auto align-items-sm-center">
 
-                <li class="nav-item">
+                <li class="nav-item citypop-home-item">
                     <a class="nav-link" href="/">
                         <i class="fa-solid fa-house-chimney me-1"></i>
                         홈
@@ -175,24 +206,17 @@
                 </li>
 
                 {{#sessionUser}}
-                    <li class="nav-item d-none d-sm-block">
-                        <span class="citypop-user-badge">
+                    <li class="nav-item">
+                        <a class="citypop-user-link" href="/user/update-form">
                             <i class="fa-regular fa-circle-user me-1"></i>
                             {{sessionUser.username}}
-                        </span>
+                        </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link citypop-btn-point" href="/board/save-form">
                             <i class="fa-solid fa-pen-nib me-1"></i>
                             글쓰기
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/user/update-form">
-                            <i class="fa-solid fa-user-gear me-1"></i>
-                            회원정보
                         </a>
                     </li>
 
