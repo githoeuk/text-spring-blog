@@ -1,98 +1,157 @@
-{{> layout/header}}
-<div class="container p-5">
+{{>layout/header}}
 
-    <!-- 수정삭제버튼 섹션 -->
-    <!-- d-flex justify-content-end: 버튼들을 오른쪽 정렬 -->
-    <div class="d-flex justify-content-end">
-        <!--
-        수정 버튼: GET 방식으로 수정 폼 페이지로 이동
-        {{! board.id}}: 현재 게시글의 ID를 URL에 포함
-        RESTful URL 패턴: /board/{id}/update-form
-        -->
-        <a href="/board/{{board.id}}/update-form" class="btn btn-warning me-1">수정</a>
+<div class="flex-grow-1">
 
-        <!--
-        삭제 버튼: POST 방식으로 삭제 요청
-        form을 사용하는 이유: DELETE 동작은 GET이 아닌 POST/DELETE 방식 사용
-        RESTful URL 패턴: /board/{id}/delete
-        -->
-        <form action="/board/{{board.id}}/delete" method="post">
-            <button class="btn btn-danger">삭제</button>
-        </form>
-    </div>
+    <section class="position-relative"
+             style="
+                     min-height: 360px;
+                     background:
+                     linear-gradient(135deg, rgba(23,19,63,0.90), rgba(75,44,131,0.74), rgba(255,93,162,0.42)),
+                     url('https://picsum.photos/seed/detail{{board.id}}/1600/800');
+                     background-size: cover;
+                     background-position: center;
+                     ">
 
-    <!-- 작성자 정보 표시 -->
-    <div class="d-flex justify-content-end">
-        <!-- {{! board.username}}: Board 객체에서 user객체를 호출 한 뒤  getUsername() 메서드 호출 -->
-        <b>작성자</b> : {{board.username}}
-    </div>
+        <div class="container py-5">
+            <div class="row align-items-end py-5">
+                <div class="col-lg-8 text-white">
+                    <div class="mb-3"
+                         style="color:#ffd166; font-weight:800; letter-spacing:3px; font-size:14px;">
+                        CITY POP DETAIL
+                    </div>
 
-    <!-- 게시글 내용 섹션 -->
-    <div>
-        <!-- 게시글 제목 -->
-        <h2><b>{{board.title}}</b></h2>
-        <hr />
-        <!-- 게시글 본문 -->
-        <div class="m-4 p-2">
-            <!--
-            {{! board.content}}: 게시글 내용 출력
-            HTML 태그가 포함된 내용은 {{! board.content}} 형태로 사용 (이스케이프 해제)
-            보안상 사용자 입력 내용은 기본적으로 HTML 태그를 이스케이프 처리
-            -->
-            {{board.content}}
-        </div>
-    </div>
+                    <h1 class="display-5 fw-bold mb-3">
+                        {{board.title}}
+                    </h1>
 
-    <!-- 댓글 섹션 (향후 구현 예정) -->
-    <div class="card mt-3">
-        <!-- 댓글 등록 폼 -->
-        <div class="card-body">
-            <!--
-            댓글 등록 폼: POST 방식으로 댓글 저장
-            향후 댓글 기능 구현시 사용할 예정
-            현재는 정적 HTML로만 구성
-            -->
-            <form action="/reply/save" method="post">
-                <textarea class="form-control" rows="2" name="comment" placeholder="댓글을 입력하세요"></textarea>
-                <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-outline-primary mt-1">댓글등록</button>
+                    <div style="color:rgba(255,255,255,0.82);">
+                        <i class="fa-regular fa-user me-1"></i>
+                        작성자 : {{board.username}}
+                    </div>
                 </div>
-            </form>
-        </div>
 
-        <!-- 댓글 목록 헤더 -->
-        <div class="card-footer">
-            <b>댓글리스트</b>
-        </div>
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="d-flex justify-content-lg-end gap-2 flex-wrap">
+                        <a href="/"
+                           class="btn btn-outline-light rounded-pill px-4">
+                            <i class="fa-solid fa-list me-1"></i>
+                            목록
+                        </a>
 
-        <!-- 댓글 목록 (현재는 정적 더미 데이터) -->
-        <div class="list-group">
-            <!-- 댓글 아이템 1 -->
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="d-flex">
-                    <!-- 댓글 작성자 배지 -->
-                    <div class="px-1 me-1 bg-primary text-white rounded">cos</div>
-                    <!-- 댓글 내용 -->
-                    <div>댓글 내용입니다</div>
+                        {{#sessionUser}}
+                            <a href="/board/{{board.id}}/update-form"
+                               class="btn rounded-pill px-4 fw-bold"
+                               style="background:#ffd166; color:#17133f;">
+                                수정
+                            </a>
+
+                            <form action="/board/{{board.id}}/delete" method="post" class="d-inline">
+                                <button type="submit"
+                                        class="btn rounded-pill px-4 fw-bold"
+                                        style="background:#ff5da2; color:white;"
+                                        onclick="return confirm('정말 삭제하시겠습니까?');">
+                                    삭제
+                                </button>
+                            </form>
+                        {{/sessionUser}}
+                    </div>
                 </div>
-                <!-- 댓글 삭제 버튼 -->
-                <form action="/reply/1/delete" method="post">
-                    <button class="btn">🗑</button>
-                </form>
-            </div>
-
-            <!-- 댓글 아이템 2 -->
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="d-flex">
-                    <div class="px-1 me-1 bg-primary text-white rounded">ssar</div>
-                    <div>댓글 내용입니다</div>
-                </div>
-                <form action="/reply/1/delete" method="post">
-                    <button class="btn">🗑</button>
-                </form>
             </div>
         </div>
+
+    </section>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                    <div class="card-body p-4 p-md-5">
+
+                        <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+                            <div>
+                                <span class="badge rounded-pill px-3 py-2"
+                                      style="background:#ffd166; color:#17133f;">
+                                    RETRO POST
+                                </span>
+                            </div>
+
+                            <div style="color:#ff5da2; font-weight:800; font-size:14px;">
+                                SUNSET · NEON · BLOG
+                            </div>
+                        </div>
+
+                        <article style="font-size:17px; line-height:1.95; color:#27223f; white-space:pre-line;">
+                            {{board.content}}
+                        </article>
+
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm rounded-4 mt-4 overflow-hidden">
+                    <div class="card-header p-4 text-white"
+                         style="background:linear-gradient(135deg, #17133f, #4b2c83, #ff5da2);">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <b>
+                                <i class="fa-regular fa-comments me-1"></i>
+                                댓글
+                            </b>
+                            <span style="color:#ffd166; font-size:13px; font-weight:800;">
+                                COMING SOON
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <form action="/reply/save" method="post">
+                            <textarea class="form-control rounded-3"
+                                      rows="3"
+                                      name="comment"
+                                      placeholder="댓글 기능은 향후 구현 예정입니다."></textarea>
+
+                            <div class="d-flex justify-content-end mt-3">
+                                <button type="submit"
+                                        class="btn rounded-pill px-4 fw-bold"
+                                        style="background:#ffd166; color:#17133f;">
+                                    댓글등록
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                                     style="width:38px; height:38px; background:#ffd166; color:#17133f; font-weight:800;">
+                                    C
+                                </div>
+                                <div>
+                                    <div class="fw-bold">cos</div>
+                                    <div class="text-muted">댓글 내용입니다</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                                     style="width:38px; height:38px; background:#ff5da2; color:white; font-weight:800;">
+                                    S
+                                </div>
+                                <div>
+                                    <div class="fw-bold">ssar</div>
+                                    <div class="text-muted">댓글 내용입니다</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
+
 </div>
 
-{{> layout/footer}}
+{{>layout/footer}}

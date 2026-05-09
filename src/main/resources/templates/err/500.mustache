@@ -1,13 +1,42 @@
 {{>layout/header}}
 
-<div class="container p-5 flex-grow-1">
-    <h1>Internal Server Error 500</h1>
-    <hr>
-    <h4>{{msg}}</h4>
-    <h1 class="mb-3">
-        <a href="/" class="btn btn-primary">메인 페이지</a>
-        <a href="javascript:location.reload()">새로고침</a>
-    </h1>
+<div class="container flex-grow-1 py-5">
+    <div class="mx-auto" style="max-width: 760px;">
+
+        <div class="p-5 rounded-4 shadow-lg"
+             style="background: linear-gradient(135deg, #111827, #2b1d1d); color: white; border: 1px solid rgba(255,255,255,0.12);">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <div style="color:#f5c542; font-weight:700; letter-spacing:2px;">SERVER TRAFFIC JAM</div>
+                    <h1 class="display-4 fw-bold mb-0">500</h1>
+                </div>
+                <div class="text-end">
+                    <div style="font-size:42px;">🚦</div>
+                    <div style="font-size:13px; color:#adb5bd;">Internal Server Error</div>
+                </div>
+            </div>
+
+            <h3 class="fw-bold mb-3">서버에 문제가 발생했습니다</h3>
+
+            <p class="mb-4" style="color:#d6d6d6; line-height:1.7;">
+                지금은 서버 내부에서 문제가 생긴 상태입니다.
+                뉴욕 도심의 교통 체증처럼 잠시 막힌 상황일 수 있습니다.
+            </p>
+
+            <div class="p-3 rounded-3 mb-4"
+                 style="background: rgba(255,255,255,0.08); border-left: 5px solid #f5c542;">
+                <div style="font-size:14px; color:#adb5bd;">ERROR MESSAGE</div>
+                <div class="fw-semibold">{{msg}}</div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <a href="javascript:location.reload()" class="btn btn-warning fw-bold px-4">새로고침</a>
+                <a href="/" class="btn btn-outline-light px-4">메인으로</a>
+            </div>
+        </div>
+
+    </div>
 </div>
 
-{{>layout/footer}}s
+{{>layout/footer}}

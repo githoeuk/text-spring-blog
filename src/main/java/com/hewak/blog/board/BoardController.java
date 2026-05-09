@@ -24,28 +24,28 @@ public class BoardController {
     // 주소 설계 : http://localhost:8080/board/save-from
     // 게시글 작성 화면 요청
     @GetMapping("/board/save-form")
-    public String SaveForm(){
+    public String SaveForm() {
         return "board/save-form";
     }
 
 
     // 게시글 작성 기능 요청
     @PostMapping("/board/save")
-    public String saveProc(BoardRequest.SaveDTO saveDTO, HttpSession session){
+    public String saveProc(BoardRequest.SaveDTO saveDTO, HttpSession session) {
         UserResponse.SessionDTO sessionDTO =
                 (UserResponse.SessionDTO) session.getAttribute("sessionUser");
         saveDTO.validate();
-        boardService.save(saveDTO,sessionDTO.getId());
+        boardService.save(saveDTO, sessionDTO.getId());
         return "redirect:/";
     }
 
     // 주소 설계 : http://localhost:8080
     // 게시글 목록
-    @GetMapping({"/","index"})
-    public String list(Model model){
+    @GetMapping({"/", "index"})
+    public String list(Model model) {
 
         List<BoardResponse.ListDTO> boardList = boardService.findByAll();
-        model.addAttribute("boardList",boardList);
+        model.addAttribute("boardList", boardList);
         return "board/list";
 
     }
@@ -53,21 +53,21 @@ public class BoardController {
     // 주소 설계 : http://localhost:8080/board/1
     // 게시글 상세보기
     @GetMapping("/board/{id}")
-    public String detailPage(@PathVariable(name = "id")Integer id, Model model){
+    public String detailPage(@PathVariable(name = "id") Integer id, Model model) {
 
         BoardResponse.DetailDTO detailDTO = boardService.findById(id);
-        model.addAttribute("board",detailDTO);
+        model.addAttribute("board", detailDTO);
         return "board/detail";
     }
 
     // 주소 설계 : http://localhost:8080
     // 게시글 삭제
     @PostMapping("/board/{id}/delete")
-    public String deleteProc(@PathVariable(name = "id")Integer id,
+    public String deleteProc(@PathVariable(name = "id") Integer id,
                              Model model,
-                             HttpSession session){
+                             HttpSession session) {
         UserResponse.SessionDTO sessionUser = (UserResponse.SessionDTO) session.getAttribute("sessionUser");
-        boardService.deletePage(id,sessionUser.getId());
+        boardService.deletePage(id, sessionUser.getId());
 
         return "redirect:/";
     }
@@ -75,28 +75,28 @@ public class BoardController {
     // 주소 설계 : http://localhost:8080/board/1/update-form
     // 게시글 수정화면 요청
     @GetMapping("/board/{id}/update-form")
-    public String updateForm(@PathVariable(name = "id")Integer id,
+    public String updateForm(@PathVariable(name = "id") Integer id,
                              Model model,
                              HttpSession session
-                             ){
+    ) {
         UserResponse.SessionDTO sessionUser =
                 (UserResponse.SessionDTO) session.getAttribute("sessionUser");
 
         BoardResponse.DetailDTO detailDTO =
-                boardService.detailPage(id,sessionUser.getId());
+                boardService.detailPage(id, sessionUser.getId());
 
-        model.addAttribute("board",detailDTO);
+        model.addAttribute("board", detailDTO);
         return "board/update-form";
     }
 
     // 게시글 수정기능
     @PostMapping("/board/{id}/update")
-    public String updateProc(@PathVariable(name = "id")Integer id,
-                             BoardRequest.UpdateDTO updateDTO){
-        updateDTO.validate();
-        boardService.updatePage(updateDTO,id);
+    public String updateProc(@PathVariable(name = "id") Integer id,
+                             BoardRequest.UpdateDTO updateDTO) {
+                updateDTO.validate();
+        boardService.updatePage(updateDTO, id);
 
-        return "redirect:/board/"+id;
+        return "redirect:/board/" + id;
     }
 
 } // end of class

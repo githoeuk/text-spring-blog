@@ -1,24 +1,107 @@
 {{>layout/header}}
 
-<div class="container p-5 flex-grow-1">
-    <div class="card">
-        <div class="card-header"><b>로그인을 해주세요</b></div>
-        <div class="card-body">
-            <!--
-            자원에 요청은 Get방식 예외적으로로그인 요청은 POST로 처리해주어야 한다
-            보안적인 이슈 때문이다.
-            -->
-            <form action="/login" method="post">
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder=" enter username " name="username" value="ssar">
+<div class="flex-grow-1">
+
+    <section style="
+        min-height: 100%;
+        background:
+            linear-gradient(135deg, rgba(23,19,63,0.90), rgba(75,44,131,0.66), rgba(255,93,162,0.42)),
+            url('https://picsum.photos/seed/citypop-login/1600/1000');
+        background-size: cover;
+        background-position: center;
+    ">
+
+        <div class="container py-5">
+            <div class="row justify-content-center align-items-center py-5">
+                <div class="col-lg-5 col-md-8">
+
+                    <div class="text-center text-white mb-4">
+                        <div style="color:#ffd166; font-weight:800; letter-spacing:3px; font-size:14px;">
+                            CITY POP LOGIN
+                        </div>
+
+                        <h1 class="fw-bold mt-2">로그인</h1>
+
+                        <p style="color:rgba(255,255,255,0.82);">
+                            네온빛 블로그에 다시 접속해보세요.
+                        </p>
+                    </div>
+
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden"
+                         style="background:rgba(255,255,255,0.92); backdrop-filter:blur(12px);">
+
+                        <div class="card-header p-4 text-white"
+                             style="background:linear-gradient(135deg, #17133f, #4b2c83, #ff5da2);">
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="fw-bold mb-1">Welcome Back</h5>
+                                    <div style="color:rgba(255,255,255,0.78); font-size:14px;">
+                                        아이디와 비밀번호를 입력하세요.
+                                    </div>
+                                </div>
+
+                                <div style="font-size:36px;">🎧</div>
+                            </div>
+                        </div>
+
+                        <div class="card-body p-4 p-md-5">
+
+                            <form action="/login" method="post">
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">
+                                        <i class="fa-regular fa-user me-1" style="color:#ff5da2;"></i>
+                                        아이디
+                                    </label>
+
+                                    <input type="text"
+                                           class="form-control form-control-lg rounded-3"
+                                           placeholder="enter username"
+                                           name="username"
+                                           value="ssar">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">
+                                        <i class="fa-solid fa-lock me-1" style="color:#ff5da2;"></i>
+                                        비밀번호
+                                    </label>
+
+                                    <input type="password"
+                                           class="form-control form-control-lg rounded-3"
+                                           placeholder="enter password"
+                                           name="password"
+                                           value="1234">
+                                </div>
+
+                                <button type="submit"
+                                        class="btn w-100 rounded-pill py-2 fw-bold"
+                                        style="background:#ffd166; color:#17133f;">
+                                    <i class="fa-solid fa-right-to-bracket me-1"></i>
+                                    로그인
+                                </button>
+
+                            </form>
+
+                            <div class="text-center mt-4">
+                                <span class="text-muted">아직 계정이 없나요?</span>
+                                <a href="/join-form"
+                                   class="text-decoration-none fw-bold"
+                                   style="color:#ff5da2;">
+                                    회원가입
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
-                <div class="mb-3">
-                    <input type="password" class="form-control" placeholder=" enter password " name="password" value="1234">
-                </div>
-                <button type="submit" class="btn btn-primary form-control">로그인</button>
-            </form>
+            </div>
         </div>
-    </div>
+
+    </section>
+
 </div>
 
 {{>layout/footer}}

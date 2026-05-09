@@ -1,23 +1,178 @@
-{{> layout/header}}
+{{>layout/header}}
 
-<div class = "container p-5 flex-grow-1">
-    {{#boardList}}
+<div class="flex-grow-1">
 
-        <div class="card mb-3">
-            <div class="card-body">
-                <h4 class="card-title mb-3">{{title}}</h4>
-                <div >작성자 : {{username}} | 작성일 : {{createdAt}}</div>
-                <a href="/board/{{id}}" class="btn btn-primary">상세보기</a>
+    <section class="position-relative overflow-hidden"
+             style="
+                min-height: 430px;
+                background:
+                    linear-gradient(135deg, rgba(23,19,63,0.92), rgba(255,93,162,0.72), rgba(77,225,209,0.35)),
+                    url('https://picsum.photos/seed/citypop-main/1600/900');
+                background-size: cover;
+                background-position: center;
+             ">
+
+        <div class="container py-5 position-relative" style="z-index:2;">
+            <div class="row align-items-center py-5">
+                <div class="col-lg-8 text-white">
+                    <div class="mb-3"
+                         style="color:#ffd166; font-weight:800; letter-spacing:3px; font-size:14px;">
+                        CITY POP BOARD
+                    </div>
+
+                    <h1 class="display-4 fw-bold mb-3">
+                        네온빛 밤거리처럼<br>
+                        기록이 쌓이는 공간
+                    </h1>
+
+                    <p class="mb-4" style="max-width:650px; color:rgba(255,255,255,0.86); line-height:1.8;">
+                        짧은 생각, 개발 기록, 오늘의 이야기를 자유롭게 남기는 블로그 게시판입니다.
+                        시티팝 감성의 화면 위에서 나만의 글을 작성해보세요.
+                    </p>
+
+                    {{#sessionUser}}
+                        <a href="/board/save-form"
+                           class="btn rounded-pill px-4 py-2 fw-bold"
+                           style="background:#ffd166; color:#17133f;">
+                            <i class="fa-solid fa-pen-nib me-1"></i>
+                            새 글 작성
+                        </a>
+                    {{/sessionUser}}
+
+                    {{^sessionUser}}
+                        <a href="/login-form"
+                           class="btn rounded-pill px-4 py-2 fw-bold"
+                           style="background:#ffd166; color:#17133f;">
+                            <i class="fa-solid fa-right-to-bracket me-1"></i>
+                            로그인 후 글쓰기
+                        </a>
+                    {{/sessionUser}}
+                </div>
+
+                <div class="col-lg-4 mt-5 mt-lg-0">
+                    <div class="p-4 rounded-4 shadow-lg"
+                         style="
+                            background:rgba(255,255,255,0.16);
+                            backdrop-filter: blur(10px);
+                            border:1px solid rgba(255,255,255,0.28);
+                            color:white;
+                         ">
+                        <div style="font-size:44px;">🎧</div>
+                        <h4 class="fw-bold mt-3 mb-2">Night Drive Notes</h4>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.82); line-height:1.7;">
+                            도시의 노을, 네온사인, 음악 같은 기록을 남기는 공간입니다.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
 
-    {{/boardList}}
+    </section>
 
+    <div class="container py-5">
 
-    <ul class="pagination d-flex justify-content-center">
-        <li class="page-item"><a href="" class="page-link">Previous</a></li>
-        <li class="page-item"><a href="" class="page-link">Next</a></li>
-    </ul>
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+                <div style="color:#ff5da2; font-weight:800; letter-spacing:2px; font-size:13px;">
+                    LATEST POSTS
+                </div>
+                <h3 class="fw-bold mb-0">게시글 목록</h3>
+            </div>
+
+            {{#sessionUser}}
+                <a href="/board/save-form"
+                   class="btn rounded-pill px-4 fw-bold"
+                   style="background:#17133f; color:white;">
+                    <i class="fa-solid fa-plus me-1"></i>
+                    글쓰기
+                </a>
+            {{/sessionUser}}
+        </div>
+
+        <div class="row g-4">
+            {{#boardList}}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100"
+                         style="background:#ffffff;">
+
+                        <div style="
+                                height:190px;
+                                background:
+                                linear-gradient(135deg, rgba(23,19,63,0.55), rgba(255,93,162,0.35)),
+                                url('https://picsum.photos/seed/post{{id}}/600/400');
+                                background-size: cover;
+                                background-position: center;
+                                ">
+                        </div>
+
+                        <div class="card-body p-4">
+                            <div class="mb-2">
+                                <span class="badge rounded-pill"
+                                      style="background:#ffd166; color:#17133f;">
+                                    CITY NOTE
+                                </span>
+                            </div>
+
+                            <h4 class="fw-bold mb-3" style="line-height:1.35;">
+                                <a href="/board/{{id}}"
+                                   class="text-decoration-none"
+                                   style="color:#17133f;">
+                                    {{title}}
+                                </a>
+                            </h4>
+
+                            <div class="d-flex justify-content-between align-items-center text-muted"
+                                 style="font-size:14px;">
+                                <span>
+                                    <i class="fa-regular fa-user me-1"></i>
+                                    {{username}}
+                                </span>
+                                <span>
+                                    <i class="fa-regular fa-clock me-1"></i>
+                                    {{createdAt}}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-white border-0 p-4 pt-0">
+                            <a href="/board/{{id}}"
+                               class="btn w-100 rounded-pill fw-bold"
+                               style="border:2px solid #ff5da2; color:#ff5da2;">
+                                자세히 보기
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            {{/boardList}}
+        </div>
+
+        {{^boardList}}
+            <div class="text-center p-5 rounded-4 shadow-sm bg-white">
+                <div style="font-size:58px;">🌆</div>
+                <h4 class="fw-bold mt-3">아직 등록된 글이 없습니다</h4>
+                <p class="text-muted mb-4">첫 번째 시티팝 노트를 남겨보세요.</p>
+
+                {{#sessionUser}}
+                    <a href="/board/save-form"
+                       class="btn rounded-pill px-4 fw-bold"
+                       style="background:#ffd166; color:#17133f;">
+                        첫 글 작성하기
+                    </a>
+                {{/sessionUser}}
+
+                {{^sessionUser}}
+                    <a href="/login-form"
+                       class="btn rounded-pill px-4 fw-bold"
+                       style="background:#17133f; color:white;">
+                        로그인하기
+                    </a>
+                {{/sessionUser}}
+            </div>
+        {{/boardList}}
+
+    </div>
+
 </div>
 
-{{> layout/footer}}
+{{>layout/footer}}

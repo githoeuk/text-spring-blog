@@ -1,44 +1,225 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
-    <title>Blog</title>
+    <title>HEWAK Blog</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap');
+
+        :root {
+            --city-navy: #17133f;
+            --city-purple: #4b2c83;
+            --city-pink: #ff5da2;
+            --city-mint: #4de1d1;
+            --city-yellow: #ffd166;
+            --city-cream: #fff7ea;
+            --city-dark: #151529;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #27223f;
+            background:
+                    radial-gradient(circle at 15% 15%, rgba(255, 93, 162, 0.22), transparent 28%),
+                    radial-gradient(circle at 85% 10%, rgba(77, 225, 209, 0.20), transparent 30%),
+                    linear-gradient(180deg, #fff7ea 0%, #f8f0ff 42%, #eefcff 100%);
+            min-height: 100vh;
+        }
+
+        .citypop-navbar {
+            background:
+                    linear-gradient(120deg, rgba(23, 19, 63, 0.96), rgba(75, 44, 131, 0.96), rgba(255, 93, 162, 0.88));
+            border-bottom: 3px solid var(--city-yellow);
+            box-shadow: 0 10px 30px rgba(23, 19, 63, 0.24);
+        }
+
+        .citypop-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .citypop-brand-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--city-yellow), var(--city-pink));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--city-navy);
+            box-shadow: 0 0 18px rgba(255, 209, 102, 0.65);
+        }
+
+        .citypop-subtitle {
+            display: block;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: var(--city-mint);
+            margin-top: -3px;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255, 255, 255, 0.88) !important;
+            font-weight: 700;
+            font-size: 14px;
+            margin-left: 6px;
+            padding: 9px 14px !important;
+            border-radius: 999px;
+            transition: 0.2s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--city-navy) !important;
+            background: var(--city-yellow);
+            transform: translateY(-1px);
+        }
+
+        .citypop-user-badge {
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            background: rgba(255, 255, 255, 0.11);
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        .citypop-btn-point {
+            background: linear-gradient(135deg, var(--city-yellow), #ff9f1c);
+            color: var(--city-navy) !important;
+            font-weight: 800 !important;
+            box-shadow: 0 0 16px rgba(255, 209, 102, 0.42);
+        }
+
+        .citypop-btn-point:hover {
+            background: linear-gradient(135deg, #ffe08a, var(--city-pink));
+            color: white !important;
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        .citypop-page-glow {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                    linear-gradient(90deg, rgba(255, 93, 162, 0.08) 1px, transparent 1px),
+                    linear-gradient(180deg, rgba(77, 225, 209, 0.08) 1px, transparent 1px);
+            background-size: 54px 54px;
+            opacity: 0.45;
+            z-index: -1;
+        }
+
+        .citypop-link {
+            color: var(--city-pink);
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        .citypop-link:hover {
+            color: var(--city-purple);
+        }
+    </style>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">HewakConding</a>
+<div class="citypop-page-glow"></div>
+
+<nav class="navbar navbar-expand-sm citypop-navbar sticky-top">
+    <div class="container">
+        <a class="navbar-brand citypop-brand" href="/">
+            <span class="citypop-brand-icon">
+                <i class="fa-solid fa-music"></i>
+            </span>
+            <span>
+                HEWAK Blog
+                <span class="citypop-subtitle">RETRO NIGHT NOTES</span>
+            </span>
+        </a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto align-items-sm-center">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        <i class="fa-solid fa-house-chimney me-1"></i>
+                        홈
+                    </a>
+                </li>
+
                 {{#sessionUser}}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/board/save-form">글쓰기</a>
+                    <li class="nav-item d-none d-sm-block">
+                        <span class="citypop-user-badge">
+                            <i class="fa-regular fa-circle-user me-1"></i>
+                            {{sessionUser.username}}
+                        </span>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/update-form">회원정보보기</a>
+                        <a class="nav-link citypop-btn-point" href="/board/save-form">
+                            <i class="fa-solid fa-pen-nib me-1"></i>
+                            글쓰기
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout">로그아웃</a>
+                        <a class="nav-link" href="/user/update-form">
+                            <i class="fa-solid fa-user-gear me-1"></i>
+                            회원정보
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">
+                            <i class="fa-solid fa-right-from-bracket me-1"></i>
+                            로그아웃
+                        </a>
                     </li>
                 {{/sessionUser}}
+
                 {{^sessionUser}}
                     <li class="nav-item">
-                        <a class="nav-link" href="/join-form">회원가입</a>
+                        <a class="nav-link" href="/join-form">
+                            <i class="fa-solid fa-user-plus me-1"></i>
+                            회원가입
+                        </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="/login-form">로그인</a>
+                        <a class="nav-link citypop-btn-point" href="/login-form">
+                            <i class="fa-solid fa-right-to-bracket me-1"></i>
+                            로그인
+                        </a>
                     </li>
                 {{/sessionUser}}
+
             </ul>
         </div>
     </div>
